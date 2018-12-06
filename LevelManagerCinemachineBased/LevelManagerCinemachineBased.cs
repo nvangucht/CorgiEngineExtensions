@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+using Cinemachine;
 using MoreMountains.CorgiEngine;
 using System;
 using System.Linq;
@@ -12,19 +12,9 @@ public class LevelManagerCinemachineBased : LevelManager
     {
         get
         {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType();
-                if (_instance == null)
-                {
-                    GameObject obj = new GameObject();
-                    _instance = obj.AddComponent();
-                }
-            }
             return _instance;
         }
     }
-
 
     protected override void Awake()
     {
@@ -50,37 +40,39 @@ public class LevelManagerCinemachineBased : LevelManager
         {
             vCams[i].Follow = Players[0].transform;
         }
-        _savedPoints = GameManager.Instance.Points;
+        _savedPoints=GameManager.Instance.Points;
         _started = DateTime.UtcNow;
+       
 
         // we store all the checkpoints present in the level, ordered by their x value
         if ((CheckpointAttributionAxis == CheckpointsAxis.x) && (CheckpointAttributionDirection == CheckpointDirections.Ascending))
         {
-            Checkpoints = FindObjectsOfType().OrderBy(o => o.transform.position.x).ToList();
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderBy (o => o.transform.position.x).ToList ();
         }
-        if ((CheckpointAttributionAxis == CheckpointsAxis.x) && (CheckpointAttributionDirection == Che ckpointDirections.Descending))
-{
-            Checkpoints = FindObjectsOfType().OrderByDescending(o => o.transform.position.x).ToList();
+        if ((CheckpointAttributionAxis == CheckpointsAxis.x) && (CheckpointAttributionDirection == CheckpointDirections.Descending))
+        {
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderByDescending (o => o.transform.position.x).ToList ();
         }
         if ((CheckpointAttributionAxis == CheckpointsAxis.y) && (CheckpointAttributionDirection == CheckpointDirections.Ascending))
         {
-            Checkpoints = FindObjectsOfType().OrderBy(o => o.transform.position.y).ToList();
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderBy (o => o.transform.position.y).ToList ();
         }
         if ((CheckpointAttributionAxis == CheckpointsAxis.y) && (CheckpointAttributionDirection == CheckpointDirections.Descending))
         {
-            Checkpoints = FindObjectsOfType().OrderByDescending(o => o.transform.position.y).ToList();
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderByDescending (o => o.transform.position.y).ToList ();
         }
         if ((CheckpointAttributionAxis == CheckpointsAxis.z) && (CheckpointAttributionDirection == CheckpointDirections.Ascending))
         {
-            Checkpoints = FindObjectsOfType().OrderBy(o => o.transform.position.z).ToList();
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderBy (o => o.transform.position.z).ToList ();
         }
-        if ((CheckpointAttributionAxis == Checkpo intsAxis.z) && (CheckpointAttributionDirection == CheckpointDirections.Descending))
-{
-            Checkpoints = FindObjectsOfType().OrderByDescending(o => o.transform.position.z).ToList();
+        if ((CheckpointAttributionAxis == CheckpointsAxis.z) && (CheckpointAttributionDirection == CheckpointDirections.Descending))
+        {
+            Checkpoints = FindObjectsOfType<CheckPoint> ().OrderByDescending (o => o.transform.position.z).ToList ();
         }
 
-        // we assign the first checkpoint 
         CurrentCheckPoint = Checkpoints.Count > 0 ? Checkpoints[0] : null;
+
+       
     }
 
     public void SetActiveCamera(int index)
